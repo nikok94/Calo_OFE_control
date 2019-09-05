@@ -1,0 +1,25 @@
+﻿<Window x:Class="Calo_OFE_Control_v._10._0._0.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Calo_OFE_Control_v._10._0._0"
+        mc:Ignorable="d"
+        Title="Calo_OFE-Control_v.10.0.0" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Grid.Column="0" Grid.Row="0" Content ="Жми" Click="Button_Click"/>
+        <Button Grid.Column="0" Grid.Row="1" Content="Deploy" Click="Button_Click_1" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Button>
+        <Label Grid.Column="1" Grid.Row="1" Name="Ladel1"/>
+
+    </Grid>
+</Window>
