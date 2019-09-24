@@ -5,21 +5,206 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calo_OFE_Control_v._10._0._0"
         mc:Ignorable="d"
-        Title="Calo_OFE-Control_v.10.0.0" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+        Title="Calo_OFE-Control_v.10.0.0" Height="667.312" Width="980.5" x:Name="MainWin">
+    <Window.Resources>
+        <Style x:Key="PWM_Button_style" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Rectangle  Fill="{TemplateBinding Background}" RadiusX="10" RadiusY="10"/>
+
+                            <Rectangle RadiusX="10" RadiusY="10">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush>
+                                        <GradientStop Offset="0" Color="#00000000"/>
+                                        <GradientStop Offset="0.6" Color="#00000000"/>
+                                        <GradientStop Offset="1" Color="#80000000"/>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <Rectangle RadiusX="8" RadiusY="8" Margin="8" x:Name="highlightpwmbut">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush>
+                                        <GradientStop Offset="0" Color="#50FFFFFF"/>
+                                        <GradientStop Offset="0.5" Color="#00FFFFFF"/>
+                                        <GradientStop Offset="1" Color="#50FFFFFF"/>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <ContentPresenter x:Name="contentpwmbut" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="highlightpwmbut" Property="Fill" >
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0.3,0" EndPoint="0.7,1">
+                                            <GradientStop Offset="0" Color="#50FFFFFF"/>
+                                            <GradientStop Offset="0.5" Color="#00FFFFFF"/>
+                                            <GradientStop Offset="1" Color="#50FFFFFF"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="contentpwmbut" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <TranslateTransform Y="0.5" X="0.5"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="LedStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Background" Value="#FF6DB4EF"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Ellipse Fill="{TemplateBinding Background}"/>
+                            <Ellipse>
+                                <Ellipse.Fill>
+                                    <RadialGradientBrush>
+                                        <GradientStop Offset="0" Color="#00000000"/>
+                                        <GradientStop Offset="0.4" Color="#00000000"/>
+                                        <GradientStop Offset="1" Color="#80000000"/>
+                                    </RadialGradientBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <Ellipse Margin="5">
+                                <Ellipse.Fill >
+                                    <LinearGradientBrush >
+                                        <GradientStop Offset="0" Color="#50FFFFFF"/>
+                                        <GradientStop Offset="0.4" Color="#00FFFFFF"/>
+                                        <GradientStop Offset="1" Color="#50FFFFFF"/>
+                                    </LinearGradientBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <ContentPresenter x:Name="content" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style x:Key="MySlider" TargetType="Slider">
+            <Setter Property="Orientation" Value="Vertical"/>
+            <Setter Property="TickPlacement" Value="TopLeft"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="IsSelectionRangeEnabled" Value="True" />
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="SelectionStart" Value="{Binding Minimum, RelativeSource={RelativeSource Self}}" />
+            <Setter Property="SelectionEnd" Value="{Binding Value, RelativeSource={RelativeSource Self}}" />
+        </Style>
+    </Window.Resources>
+    <Grid RenderTransformOrigin="0.508,0.501" Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Button Grid.Column="0" Grid.Row="0" Content ="Жми" Click="Button_Click"/>
-        <Button Grid.Column="0" Grid.Row="1" Content="Deploy" Click="Button_Click_1" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Button>
-        <Label Grid.Column="1" Grid.Row="1" Name="Ladel1"/>
+        <Rectangle Grid.Row="0" Fill="AliceBlue" />
+        <Rectangle Grid.Row="1" Fill="Gold" />
+
+        <Grid Grid.Row="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="30*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Button x:Name="Button1"  Grid.Row="2"  Grid.Column="0" Background="#FFB4B4B4"  Click="ClickButton1" Content="Deploy" FontSize="10" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="20" Width="50"/>
+                <Label Name="TextBoxOfTime" Grid.Row="0" Grid.ColumnSpan="3" Background="AntiqueWhite" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+
+                <StackPanel Grid.Column="2" Grid.Row="1">
+                    <DockPanel Width="60" Height="215" Background="Chocolate">
+                        <TextBox Text="{Binding ElementName= slValue, Path = Value , UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="White" DockPanel.Dock="Top"/>
+                        <Slider Name="slValue" Style="{StaticResource MySlider}"  Minimum="200" Maximum="1400"  IsSnapToTickEnabled="True" MouseWheel="MsWheel" DockPanel.Dock="Right" Margin="0,3,0,0" BorderThickness="0,0,5,0">
+                            <Slider.Resources>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Green"/>
+                            </Slider.Resources>
+                        </Slider>
+                        <StackPanel DockPanel.Dock="Left">
+
+                            <TextBox Width="Auto" HorizontalAlignment="Right" Text="1400" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="{DynamicResource {x:Static SystemColors.ControlColor}}" FontSize="10"/>
+                            <TextBox Width="Auto" HorizontalAlignment="Right" Text="1300" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="{DynamicResource {x:Static SystemColors.ControlColor}}" FontSize="10"/>
+                            <TextBox Width="Auto" HorizontalAlignment="Right" Text="1200" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="{DynamicResource {x:Static SystemColors.ControlColor}}" FontSize="10"/>
+                            <TextBox Width="Auto" HorizontalAlignment="Right" Text="1100" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="{DynamicResource {x:Static SystemColors.ControlColor}}" FontSize="10"/>
+                            <TextBox Width="Auto" HorizontalAlignment="Right" Text="1000" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="{DynamicResource {x:Static SystemColors.ControlColor}}" FontSize="10"/>
+                            <TextBox Width="Auto" HorizontalAlignment="Right" Text="900" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="{DynamicResource {x:Static SystemColors.ControlColor}}"  FontSize="10"/>
+                            <TextBox Width="Auto" HorizontalAlignment="Right" Text="800" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="{DynamicResource {x:Static SystemColors.ControlColor}}"  FontSize="10"/>
+                            <TextBox Width="Auto" HorizontalAlignment="Right" Text="700" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="{DynamicResource {x:Static SystemColors.ControlColor}}"  FontSize="10"/>
+                            <TextBox Width="Auto" HorizontalAlignment="Right" Text="600" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="{DynamicResource {x:Static SystemColors.ControlColor}}"  FontSize="10"/>
+                            <TextBox Width="Auto" HorizontalAlignment="Right" Text="500" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="{DynamicResource {x:Static SystemColors.ControlColor}}"  FontSize="10"/>
+                            <TextBox Width="Auto" HorizontalAlignment="Right" Text="400" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="{DynamicResource {x:Static SystemColors.ControlColor}}"  FontSize="10"/>
+                            <TextBox Width="Auto" HorizontalAlignment="Right" Text="300" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="{DynamicResource {x:Static SystemColors.ControlColor}}"  FontSize="10"/>
+                            <TextBox Width="Auto" HorizontalAlignment="Right" Text="200" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="{DynamicResource {x:Static SystemColors.ControlColor}}"  FontSize="10"/>
+
+
+                        </StackPanel>
+                    </DockPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Grid.Row="1">
+                    <DockPanel Width="60" Height="215" Background="Chocolate">
+                        <TextBox Text="{Binding ElementName= sl1Value, Path = Value , UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="White" DockPanel.Dock="Top"/>
+                        <Slider Name="sl1Value" Style="{StaticResource MySlider}"  Minimum="0" Maximum="60000" TickFrequency="10" IsSnapToTickEnabled="True" MouseWheel="Ms1Wheel" DockPanel.Dock="Right" Margin="0,3,0,0" BorderThickness="0,0,5,0">
+                            <Slider.Resources>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Green"/>
+                            </Slider.Resources>
+                        </Slider>
+                        <StackPanel DockPanel.Dock="Left">
+
+                            <TextBox Width="Auto" HorizontalAlignment="Right" Text="60k" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="{DynamicResource {x:Static SystemColors.ControlColor}}" FontSize="10" Margin="0,0,0,15"/>
+                            <TextBox Width="Auto" HorizontalAlignment="Right" Text="50k" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="{DynamicResource {x:Static SystemColors.ControlColor}}" FontSize="10"  Margin="0,0,0,15"/>
+                            <TextBox Width="Auto" HorizontalAlignment="Right" Text="40k" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="{DynamicResource {x:Static SystemColors.ControlColor}}" FontSize="10" Margin="0,0,0,15"/>
+                            <TextBox Width="Auto" HorizontalAlignment="Right" Text="30k" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="{DynamicResource {x:Static SystemColors.ControlColor}}" FontSize="10" Margin="0,0,0,15"/>
+                            <TextBox Width="Auto" HorizontalAlignment="Right" Text="20k" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="{DynamicResource {x:Static SystemColors.ControlColor}}" FontSize="10" Margin="0,0,0,15"/>
+                            <TextBox Width="Auto" HorizontalAlignment="Right" Text="10k" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="{DynamicResource {x:Static SystemColors.ControlColor}}"  FontSize="10" Margin="0,0,0,15"/>
+                            <TextBox Width="Auto" HorizontalAlignment="Right" Text="0" BorderBrush="{DynamicResource {x:Static SystemColors.ControlColor}}" Background="{DynamicResource {x:Static SystemColors.ControlColor}}"  FontSize="10"/>
+                        </StackPanel>
+                    </DockPanel>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="0" Background="Aquamarine">
+
+                    <Button x:Name="PWMButton" Height="30" Width="75" FontSize="10" Style="{StaticResource PWM_Button_style}" Background="Gray" Margin="0,10,0,5" Content="PWM auto" Foreground="#FFF5E4E4" Click="Button_Click_1" FontStretch="SemiCondensed" FontWeight="Bold"/>
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontWeight="SemiBold" Height="Auto">Power</Label>
+                    <Button x:Name="PowerLed" Style="{StaticResource LedStyle}" Width="15" Height="15" Background="Green"/>
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontWeight="SemiBold" Height="Auto">PWM</Label>
+                    <Button x:Name="PWMLed" Style="{StaticResource LedStyle}" Width="15" Height="15" Background="Green"/>
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontWeight="SemiBold" Height="Auto">Current</Label>
+                    <Button x:Name="CurrentLed" Style="{StaticResource LedStyle}" Width="15" Height="15" Background="Green"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="HeatButton" Height="50" Width="50" FontSize="10" Style="{StaticResource PWM_Button_style}" Background="Gray" Margin="0,10,0,5" Content="Heat" Foreground="#FFF5E4E4" FontStretch="SemiCondensed" FontWeight="Bold"/>
+                        <TextBox x:Name="HeatTextBox" Height="30" Width="50" Margin="5"></TextBox>
+                    </StackPanel>
+
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1">
+                <TextBox x:Name="StatusTextBox"/>
+            </Grid>
+        </Grid>
 
     </Grid>
+
+
+
+
+
 </Window>

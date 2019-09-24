@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calo_OFE-Control_v.10.0.0", "Calo_OFE-Control_v.10.0.0.csproj", "{9DB733B3-0541-465C-826B-53084A81FBC9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calo_OFE-Control", "Calo_OFE-Control.csproj", "{9DB733B3-0541-465C-826B-53084A81FBC9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
